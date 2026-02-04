@@ -4,15 +4,30 @@ let transporter = null
 
 const getTransporter = () => {
   if (!transporter) {
-    transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-      port: Number(process.env.EMAIL_PORT || 587),
-      secure: Number(process.env.EMAIL_PORT || 587) === 465,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    })
+    // Check if using SendGrid API key
+    if (process.env.SENDGRID_API_KEY) {
+      // Use SendGrid API (works on Render)
+      transporter = nodemailer.createTransport({
+        host: 'smtp.sendgrid.net',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'apikey',
+          pass: process.env.SENDGRID_API_KEY,
+        },
+      })
+    } else {
+      // Fallback to Gmail SMTP
+      transporter = nodemailer.createTransport({
+        host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+        port: Number(process.env.EMAIL_PORT || 587),
+        secure: Number(process.env.EMAIL_PORT || 587) === 465,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      })
+    }
 
     transporter.verify((error, success) => {
       if (error) {
