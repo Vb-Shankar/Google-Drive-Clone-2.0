@@ -39,8 +39,10 @@ export const register = async (req, res) => {
 
     await user.save()
 
-    // Send verification email
-    await sendVerificationEmail(email, verificationToken)
+    // Send verification email in background (non-blocking)
+    sendVerificationEmail(email, verificationToken).catch(err => {
+      console.error('Error sending verification email:', err.message)
+    })
 
     res.status(201).json({
       message: 'Registration successful. Please verify your email.',
@@ -138,8 +140,10 @@ export const forgotPassword = async (req, res) => {
     user.passwordResetExpire = passwordResetExpire
     await user.save()
 
-    // Send email with reset token
-    await sendPasswordResetEmail(email, passwordResetToken)
+    // Send email with reset token in background (non-blocking)
+    sendPasswordResetEmail(email, passwordResetToken).catch(err => {
+      console.error('Error sending password reset email:', err.message)
+    })
 
     res.json({ message: 'Password reset link sent to email' })
   } catch (error) {
