@@ -43,12 +43,16 @@ const getTransporter = () => {
 export const sendVerificationEmail = async (email, token) => {
   const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${token}`
   
+  const fromEmail = process.env.SENDGRID_API_KEY 
+    ? process.env.SENDGRID_FROM_EMAIL || process.env.EMAIL_USER
+    : process.env.EMAIL_USER
+  
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: `"Drive Clone" <${fromEmail}>`,
     to: email,
-    subject: 'Email Verification - Google Drive Clone',
+    subject: 'Email Verification - Drive Clone',
     html: `
-      <h2>Welcome to Google Drive Clone!</h2>
+      <h2>Welcome to Drive Clone!</h2>
       <p>Please verify your email address by clicking the link below:</p>
       <a href="${verificationUrl}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
         Verify Email
@@ -72,10 +76,14 @@ export const sendVerificationEmail = async (email, token) => {
 export const sendPasswordResetEmail = async (email, token) => {
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${token}`
   
+  const fromEmail = process.env.SENDGRID_API_KEY 
+    ? process.env.SENDGRID_FROM_EMAIL || process.env.EMAIL_USER
+    : process.env.EMAIL_USER
+  
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: `"Drive Clone" <${fromEmail}>`,
     to: email,
-    subject: 'Password Reset - Google Drive Clone',
+    subject: 'Password Reset - Drive Clone',
     html: `
       <h2>Password Reset Request</h2>
       <p>Click the link below to reset your password:</p>
