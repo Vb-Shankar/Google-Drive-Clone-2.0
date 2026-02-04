@@ -4,36 +4,36 @@ let transporter = null
 
 const getTransporter = () => {
   if (!transporter) {
-    // Check if using SendGrid API key
-    if (process.env.SENDGRID_API_KEY) {
-      // Use SendGrid API (works on Render)
-      transporter = nodemailer.createTransport({
-        host: 'smtp.sendgrid.net',
-        port: 465,
-        secure: true,
-        auth: {
-          user: 'apikey',
-          pass: process.env.SENDGRID_API_KEY,
-        },
-      })
-    } else {
-      // Fallback to Gmail SMTP
-      transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-        port: Number(process.env.EMAIL_PORT || 587),
-        secure: Number(process.env.EMAIL_PORT || 587) === 465,
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      })
+    console.log('Initializing email transporter...')
+    console.log('SENDGRID_API_KEY:', process.env.SENDGRID_API_KEY ? 'Present' : 'Missing')
+    
+    const apiKey = process.env.SENDGRID_API_KEY
+    
+    if (!apiKey) {
+      console.warn('⚠️  SENDGRID_API_KEY not found in environment variables!')
+      console.warn('Please add SENDGRID_API_KEY to Render environment variables')
     }
+    
+    // Always use SendGrid (more reliable than SMTP on Render)
+    transporter = nodemailer.createTransport({
+      host: 'smtp.sendgrid.net',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'apikey',
+        pass: apiKey || 'placeholder',
+      },
+      connectionTimeout: 15000,
+      socketTimeout: 15000,
+      logger: true,
+      debug: true,
+    })
 
     transporter.verify((error, success) => {
       if (error) {
-        console.error('Email transporter error:', error)
+        console.error('❌ Email transporter verification failed:', error.message)
       } else {
-        console.log('Email transporter ready')
+        console.log('✅ Email transporter ready')
       }
     })
   }
@@ -64,12 +64,15 @@ export const sendVerificationEmail = async (email, token) => {
 
   try {
     const transporter = getTransporter()
+    console.log('Sending verification email to:', email)
+    console.log('From:', mailOptions.from)
     const info = await transporter.sendMail(mailOptions)
-    console.log('Verification email sent:', info.messageId)
+    console.log('✅ Verification email sent:', info.messageId)
     return info
   } catch (error) {
-    console.error('Error sending verification email:', error)
-    throw new Error(`Email Error: ${error.message}`)
+    console.error('❌ Error sending verification email:', error.message)
+    console.error('Full error:', error)
+    throw error
   }
 }
 
@@ -98,12 +101,15 @@ export const sendPasswordResetEmail = async (email, token) => {
 
   try {
     const transporter = getTransporter()
+    console.log('Sending password reset email to:', email)
+    console.log('From:', mailOptions.from)
     const info = await transporter.sendMail(mailOptions)
-    console.log('Password reset email sent:', info.messageId)
+    console.log('✅ Password reset email sent:', info.messageId)
     return info
   } catch (error) {
-    console.error('Error sending password reset email:', error)
-    throw new Error(`Email Error: ${error.message}`)
+    console.error('❌ Error sending password reset email:', error.message)
+    console.error('Full error:', error)
+    throw error
   }
 }
 export default getTransporter
