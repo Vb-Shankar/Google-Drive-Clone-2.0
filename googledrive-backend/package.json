@@ -1,7 +1,7 @@
 {
   "name": "googledrive-backend",
   "version": "1.0.0",
-  "description": "Google Drive Clone Backend",
+  "description": "Google Drive Clone Backend - RESTful API built with Node.js, Express, MongoDB Atlas, and AWS S3 for file storage and user authentication",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -23,5 +23,21 @@
   "devDependencies": {
     "@types/node": "^25.2.0",
     "nodemon": "^3.0.2"
+  },
+  "keywords": [
+    "google-drive",
+    "cloud-storage",
+    "file-management",
+    "nodejs",
+    "express",
+    "mongodb",
+    "aws-s3",
+    "jwt",
+    "authentication",
+    "api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vb-Shankar/Google-Drive-Clone-2.0"
   }
 }
