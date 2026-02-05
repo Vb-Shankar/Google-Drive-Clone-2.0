@@ -27,8 +27,8 @@ export default function ForgotPassword() {
   if (submitted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
-        <div className="card w-full max-w-md text-center">
-          <h2 className="text-2xl font-bold mb-4">Check Your Email</h2>
+        <div className="card w-full max-w-md shadow-2xl border border-gray-100 text-center">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800">Check Your Email</h2>
           <p className="text-gray-600 mb-6">
             We've sent a password reset link to {email}. Please check your email and click the link to reset your password.
           </p>
@@ -45,20 +45,20 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
-      <div className="card w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Forgot Password</h1>
-        <p className="text-center text-gray-600 mb-8">Enter your email to receive a password reset link</p>
+      <div className="card w-full max-w-md shadow-2xl border border-gray-100">
+        <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">Forgot Password</h1>
+        <p className="text-center text-gray-600 mb-6">Enter your email to receive a password reset link</p>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
             <div className="relative">
-              <FiMail className="absolute left-3 top-3 text-gray-400" />
+              <FiMail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="input-field pl-10"
+                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
                 placeholder="your@email.com"
                 required
               />
@@ -68,7 +68,7 @@ export default function ForgotPassword() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed py-3 rounded-xl"
           >
             {loading ? 'Sending...' : 'Send Reset Link'}
           </button>

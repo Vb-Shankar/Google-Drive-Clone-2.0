@@ -17,14 +17,14 @@ const getTransporter = () => {
     // Always use SendGrid (more reliable than SMTP on Render)
     transporter = nodemailer.createTransport({
       host: 'smtp.sendgrid.net',
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
       auth: {
         user: 'apikey',
         pass: apiKey || 'placeholder',
       },
-      connectionTimeout: 15000,
-      socketTimeout: 15000,
+      connectionTimeout: 10000,
+      socketTimeout: 10000,
       logger: true,
       debug: true,
     })
