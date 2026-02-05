@@ -1,0 +1,20 @@
+.icon-round {
+  border-radius: 9999px;
+  background: rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-round svg {
+  display: block;
+}
+
+button:hover .icon-round,
+.group:hover .icon-round {
+  /* Remove roundness on hover if needed, or keep as is */
+  /* border-radius: 1rem; */
+  background: rgba(0,0,0,0.10);
+}

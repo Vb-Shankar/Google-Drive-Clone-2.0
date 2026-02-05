@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useLocation } from 'react-router-dom'
-import { FiUpload, FiFolder, FiFile, FiDownload, FiTrash2, FiChevronRight, FiPlus, FiGrid, FiList } from 'react-icons/fi'
+import { FiUpload, FiFolder, FiFile, FiDownload, FiTrash2, FiChevronRight, FiPlus, FiGrid, FiList, FiArrowLeft } from 'react-icons/fi'
+import './DashboardIcons.css';
 import { toast } from 'react-toastify'
 import { fileService } from '../services/api'
 import { AuthContext } from '../context/AuthContext'
@@ -187,6 +188,22 @@ export default function Dashboard() {
 
       {/* Remove Create Folder Section */}
 
+      {/* Back Button - Only show when inside a folder */}
+      {currentFolderId && (
+        <div className="mb-4">
+          <button
+            onClick={handleBackToRoot}
+            className="group bg-red-500 hover:bg-red-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-105 flex items-center gap-2 hover:rounded-3xl hover:pr-6"
+            title="Go back to root"
+          >
+            <FiArrowLeft className="text-2xl" />
+            <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap font-semibold">
+              Back
+            </span>
+          </button>
+        </div>
+      )}
+
       {/* Floating Action Buttons - Bottom Right */}
       <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3 items-end">
         {/* New Folder Button */}
@@ -226,7 +243,7 @@ export default function Dashboard() {
             className="group bg-yellow-500 hover:bg-yellow-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-105 flex items-center gap-2 hover:rounded-3xl hover:pr-6"
             title="Create new folder"
           >
-            <FiFolder className="text-2xl" />
+            <span className="icon-round"><FiFolder className="text-2xl" /></span>
             <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap font-semibold">
               New Folder
             </span>
@@ -245,7 +262,7 @@ export default function Dashboard() {
               <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent"></div>
             ) : (
               <>
-                <FiUpload className="text-2xl" />
+                <span className="icon-round"><FiUpload className="text-2xl" /></span>
                 <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap font-semibold">
                   Upload Files
                 </span>
