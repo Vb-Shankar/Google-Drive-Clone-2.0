@@ -93,9 +93,14 @@ export const login = async (req, res) => {
 
 export const verifyEmail = async (req, res) => {
   try {
-    const { token } = req.body
+    // Handle both GET /verify-email/:token and POST /verify-email with body
+    const token = req.params.token || req.body.token
 
-    // Find user with verification token - need to select the fields
+    if (!token) {
+      return res.status(400).json({ message: 'Verification token is required' })
+    }
+
+    // Find user with verification token
     const user = await User.findOne({
       verificationToken: token,
       verificationTokenExpire: { $gt: Date.now() },
@@ -111,6 +116,12 @@ export const verifyEmail = async (req, res) => {
     user.verificationTokenExpire = null
     await user.save()
 
+    // If GET request, redirect to success page
+    if (req.params.token) {
+      return res.json({ message: 'Email verified successfully', success: true })
+    }
+
+    // If POST request, return JSON
     res.json({ message: 'Email verified successfully' })
   } catch (error) {
     res.status(500).json({ message: error.message })

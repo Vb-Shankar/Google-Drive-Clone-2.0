@@ -26,7 +26,7 @@ export const authService = {
     api.post('/auth/login', { email, password }),
   
   verifyEmail: (token) =>
-    api.post('/auth/verify-email', { token }),
+    api.get(`/auth/verify-email/${token}`),
   
   forgotPassword: (email) =>
     api.post('/auth/forgot-password', { email }),
