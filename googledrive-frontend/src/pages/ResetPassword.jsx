@@ -40,30 +40,30 @@ export default function ResetPassword() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
-        <div className="card w-full max-w-md text-center">
-          <h2 className="text-2xl font-bold mb-4 text-green-600">Password Reset Successful</h2>
-          <p className="text-gray-600">Your password has been reset. Redirecting to login...</p>
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #3b82f6, #9333ea)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+        <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '1.5rem', width: '100%', maxWidth: '28rem', textAlign: 'center' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', color: '#16a34a' }}>Password Reset Successful</h2>
+          <p style={{ color: '#4b5563' }}>Your password has been reset. Redirecting to login...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
-      <div className="card w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Reset Password</h1>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #3b82f6, #9333ea)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+      <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '1.5rem', width: '100%', maxWidth: '28rem' }}>
+        <h1 style={{ fontSize: '1.875rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '1.5rem', color: '#1f2937' }}>Reset Password</h1>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
-            <div className="relative">
-              <FiLock className="absolute left-3 top-3 text-gray-400" />
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.25rem' }}>New Password</label>
+            <div style={{ position: 'relative' }}>
+              <FiLock style={{ position: 'absolute', left: '0.75rem', top: '0.75rem', color: '#9ca3af' }} />
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="input-field pl-10"
+                style={{ width: '100%', paddingLeft: '2.5rem', paddingRight: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', border: '1px solid #d1d5db', borderRadius: '0.5rem', fontSize: '1rem' }}
                 placeholder="••••••••"
                 required
               />
@@ -71,14 +71,14 @@ export default function ResetPassword() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-            <div className="relative">
-              <FiLock className="absolute left-3 top-3 text-gray-400" />
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.25rem' }}>Confirm Password</label>
+            <div style={{ position: 'relative' }}>
+              <FiLock style={{ position: 'absolute', left: '0.75rem', top: '0.75rem', color: '#9ca3af' }} />
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="input-field pl-10"
+                style={{ width: '100%', paddingLeft: '2.5rem', paddingRight: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', border: '1px solid #d1d5db', borderRadius: '0.5rem', fontSize: '1rem' }}
                 placeholder="••••••••"
                 required
               />
@@ -88,7 +88,7 @@ export default function ResetPassword() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ width: '100%', backgroundColor: loading ? 'rgba(37, 99, 235, 0.5)' : '#2563eb', color: 'white', padding: '0.75rem', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: '600', border: 'none', cursor: loading ? 'not-allowed' : 'pointer' }}
           >
             {loading ? 'Resetting...' : 'Reset Password'}
           </button>

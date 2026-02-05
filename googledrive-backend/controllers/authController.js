@@ -164,14 +164,35 @@ export const forgotPassword = async (req, res) => {
 
 export const resetPassword = async (req, res) => {
   try {
-    const { token, newPassword } = req.body
+    // Handle both GET /reset-password/:token and POST /reset-password with body
+    const token = req.params.token || req.body.token
+    const newPassword = req.body.newPassword
 
     // Validate input
-    if (!token || !newPassword) {
-      return res.status(400).json({ message: 'Token and new password are required' })
+    if (!token) {
+      return res.status(400).json({ message: 'Reset token is required' })
     }
 
-    // Find user with reset token - need to select the fields
+    // If GET request, just validate token exists
+    if (req.params.token && !newPassword) {
+      const user = await User.findOne({
+        passwordResetToken: token,
+        passwordResetExpire: { $gt: Date.now() },
+      }).select('+passwordResetToken +passwordResetExpire')
+
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid or expired reset token' })
+      }
+
+      return res.json({ message: 'Token is valid', valid: true })
+    }
+
+    // If POST request with password
+    if (!newPassword) {
+      return res.status(400).json({ message: 'New password is required' })
+    }
+
+    // Find user with reset token
     const user = await User.findOne({
       passwordResetToken: token,
       passwordResetExpire: { $gt: Date.now() },
