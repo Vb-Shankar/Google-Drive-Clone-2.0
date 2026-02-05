@@ -1,6 +1,7 @@
 {
   "name": "googledrive-frontend",
   "version": "1.0.0",
+  "description": "Google Drive Clone Frontend - A complete Google Drive clone application built with React, Vite, and Tailwind CSS featuring user authentication, file management, and drag-and-drop uploads",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -24,5 +25,19 @@
     "vite": "^5.0.8",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32"
+  },
+  "keywords": [
+    "google-drive",
+    "cloud-storage",
+    "file-management",
+    "react",
+    "vite",
+    "tailwindcss",
+    "drag-and-drop",
+    "file-upload"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vb-Shankar/Google-Drive-Clone-2.0"
   }
 }
